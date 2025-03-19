@@ -5,10 +5,9 @@ int main(void) {
     char grade;
 
     scanf("%d", &total);
-    fflush(stdin);
-    scanf("%c", &grade);
+    scanf(" %c", &grade);
 
     printf("%d %c", total, grade);
 
     return 0;
-}
+    
