@@ -15,10 +15,13 @@ int LCM(int a, int b) {
 
 int main(void) {
     int k;
+	int a[100001];
 
     scanf("%d", &k);
 
-    for (int i = 2; i < k; i++) printf("%d ", GCD(k, i));
+    for (int i = 2; i < k; i++) a[i] = GCD(k, i);
+
+	
 
     return 0;
 }
