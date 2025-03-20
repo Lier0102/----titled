@@ -1,27 +1,33 @@
 #include <stdio.h>
-
-int GCD(int a, int b) {
-	if (b == 0) {
-		return a;
-	}
-	else {
-		return GCD(b, a % b);
-	}
-}
-
-int LCM(int a, int b) {
-	return a * b / GCD(a, b);
-}
+#include <math.h>
 
 int main(void) {
-    int k;
-	int a[100001];
+	int k;
+	int prime = 0;
+	int cnt=1;
 
-    scanf("%d", &k);
+	scanf("%d", &k);
 
-    for (int i = 2; i < k; i++) a[i] = GCD(k, i);
-
+	for(;;) {
+		prime = 1;
+		for (int i = 2; i * i <= k; i++) {
+			if (k % i == 0) {
+				prime = 0;
+				k /= i;
+				cnt++;
+				break;
+			}
+		}
+		if (prime) break;
+	}
 	
+	int ans = (int)ceil(log10(cnt) / log10(2));
 
-    return 0;
+	printf("%d", ans);
+
+	return 0;
 }
+
+// author : neam
+// aedsfasldjflasdjfkadsjf;asojfaoiw;efjaio;ejf;a
+// tlqkf tprtm!!!!!
