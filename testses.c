@@ -9,7 +9,7 @@ int main(void) {
     c = b - a;
 
     while(1) {
-        if (c - 1000 >= 0) { c -= 1000;  n1000++;}
+        if (c - 1000 > 0) { c -= 1000;  n1000++;}
         else if (c - 500 >= 0) { c -= 500; n500++;}
         else if (c - 100 >= 0) { c -= 100; n100++;}
         else break;
