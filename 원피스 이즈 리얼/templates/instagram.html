@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram Clone</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #fafafa;
+            color: #262626;
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            border-bottom: 1px solid #dbdbdb;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 8px 0;
+        }
+
+        .header-content {
+            max-width: 975px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #405de6, #833ab4, #e1306c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary {
+            background: #0095f6;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1877f2;
+        }
+
+        .btn-secondary {
+            background: #f0f0f0;
+            color: #262626;
+        }
+
+        .btn-secondary:hover {
+            background: #e0e0e0;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 614px;
+            margin: 80px auto 0;
+            padding: 20px;
+        }
+
+        /* New Post Form */
+        .new-post {
+            background: white;
+            border: 1px solid #dbdbdb;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .new-post h3 {
+            margin-bottom: 15px;
+            color: #262626;
+        }
+
+        .emoji-selector {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 10px;
+            margin-bottom: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .emoji-btn {
+            font-size: 2rem;
+            padding: 10px;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: white;
+        }
+
+        .emoji-btn:hover {
+            border-color: #0095f6;
+            transform: scale(1.1);
+        }
+
+        .emoji-btn.selected {
+            border-color: #0095f6;
+            background: #e3f2fd;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #dbdbdb;
+            border-radius: 6px;
+            resize: vertical;
+            min-height: 80px;
+            font-family: inherit;
+        }
+
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #0095f6;
+        }
+
+        /* Posts */
+        .post {
+            background: white;
+            border: 1px solid #dbdbdb;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .post-header {
+            display: flex;
+            align-items: center;
+            padding: 16px;
+            gap: 12px;
+        }
+
+        .avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #405de6, #833ab4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .post-user {
+            font-weight: 600;
+            color: #262626;
+        }
+
+        .post-time {
+            color: #8e8e8e;
+            font-size: 0.9rem;
+            margin-left: auto;
+        }
+
+        .post-image {
+            width: 100%;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 8rem;
+            background: #f8f9fa;
+            border-top: 1px solid #dbdbdb;
+            border-bottom: 1px solid #dbdbdb;
+        }
+
+        .post-actions {
+            padding: 16px;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .action-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .action-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .action-btn.liked {
+            color: #ed4956;
+        }
+
+        .likes-count {
+            font-weight: 600;
+            margin-left: auto;
+        }
+
+        .post-caption {
+            padding: 0 16px 16px;
+        }
+
+        .post-caption .username {
+            font-weight: 600;
+            margin-right: 8px;
+        }
+
+        /* Comments */
+        .comments-section {
+            border-top: 1px solid #efefef;
+            padding: 16px;
+        }
+
+        .comment {
+            margin-bottom: 12px;
+            display: flex;
+            gap: 8px;
+        }
+
+        .comment .username {
+            font-weight: 600;
+            margin-right: 8px;
+        }
+
+        .comment-time {
+            color: #8e8e8e;
+            font-size: 0.8rem;
+            margin-left: auto;
+        }
+
+        .add-comment {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #efefef;
+        }
+
+        .add-comment input {
+            flex: 1;
+            padding: 8px 12px;
+            border: 1px solid #dbdbdb;
+            border-radius: 20px;
+            outline: none;
+        }
+
+        .add-comment input:focus {
+            border-color: #0095f6;
+        }
+
+        .add-comment button {
+            padding: 8px 16px;
+            background: #0095f6;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .add-comment button:hover {
+            background: #1877f2;
+        }
+
+        /* Loading */
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #8e8e8e;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-content {
+                padding: 10px;
+            }
+            
+            .emoji-selector {
+                grid-template-columns: repeat(6, 1fr);
+            }
+            
+            .post-image {
+                height: 300px;
+                font-size: 6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">📸 Instagram</div>
+            <div class="header-actions">
+                <span id="currentUser"></span>
+                <button class="btn btn-secondary" onclick="logout()">Logout</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <!-- New Post Form -->
+        <div class="new-post">
+            <h3>Create New Post</h3>
+            
+            <div class="form-group">
+                <label>Select Image (Emoji)</label>
+                <div class="emoji-selector">
+                    <div class="emoji-btn" data-emoji="🌅">🌅</div>
+                    <div class="emoji-btn" data-emoji="🍕">🍕</div>
+                    <div class="emoji-btn" data-emoji="🌸">🌸</div>
+                    <div class="emoji-btn" data-emoji="🏔️">🏔️</div>
+                    <div class="emoji-btn" data-emoji="🌊">🌊</div>
+                    <div class="emoji-btn" data-emoji="🌙">🌙</div>
+                    <div class="emoji-btn" data-emoji="☕">☕</div>
+                    <div class="emoji-btn" data-emoji="🎵">🎵</div>
+                    <div class="emoji-btn" data-emoji="📚">📚</div>
+                    <div class="emoji-btn" data-emoji="🎨">🎨</div>
+                    <div class="emoji-btn" data-emoji="🏃‍♂️">🏃‍♂️</div>
+                    <div class="emoji-btn" data-emoji="🍰">🍰</div>
+                    <div class="emoji-btn" data-emoji="🌺">🌺</div>
+                    <div class="emoji-btn" data-emoji="🎭">🎭</div>
+                    <div class="emoji-btn" data-emoji="🚗">🚗</div>
+                    <div class="emoji-btn" data-emoji="🎪">🎪</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="caption">Caption</label>
+                <textarea id="caption" placeholder="Write a caption..." maxlength="500"></textarea>
+            </div>
+
+            <button class="btn btn-primary" onclick="createPost()">Share Post</button>
+        </div>
+
+        <!-- Posts Feed -->
+        <div id="postsContainer">
+            <div class="loading">Loading posts...</div>
+        </div>
+    </main>
+
+    <script>
+        let selectedEmoji = '';
+        let currentUser = null;
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', async () => {
+            await loadCurrentUser();
+            await loadPosts();
+            setupEmojiSelector();
+        });
+
+        async function loadCurrentUser() {
+            try {
+                const response = await fetch('/api/current-user');
+                const user = await response.json();
+                if (user.username) {
+                    currentUser = user;
+                    document.getElementById('currentUser').textContent = `@${user.username}`;
+                }
+            } catch (error) {
+                console.error('Error loading user:', error);
+            }
+        }
+
+        function setupEmojiSelector() {
+            const emojiButtons = document.querySelectorAll('.emoji-btn');
+            emojiButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Remove previous selection
+                    emojiButtons.forEach(b => b.classList.remove('selected'));
+                    // Add selection to clicked emoji
+                    btn.classList.add('selected');
+                    selectedEmoji = btn.dataset.emoji;
+                });
+            });
+        }
+
+        async function createPost() {
+            if (!selectedEmoji) {
+                alert('Please select an image emoji!');
+                return;
+            }
+
+            const caption = document.getElementById('caption').value.trim();
+
+            try {
+                const response = await fetch('/api/posts', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        image: selectedEmoji,
+                        caption: caption
+                    })
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    // Clear form
+                    document.getElementById('caption').value = '';
+                    document.querySelectorAll('.emoji-btn').forEach(btn => btn.classList.remove('selected'));
+                    selectedEmoji = '';
+                    
+                    // Reload posts
+                    await loadPosts();
+                } else {
+                    alert(result.error || 'Error creating post');
+                }
+            } catch (error) {
+                alert('Error creating post');
+            }
+        }
+
+        async function loadPosts() {
+            try {
+                const response = await fetch('/api/posts');
+                const posts = await response.json();
+                
+                const container = document.getElementById('postsContainer');
+                
+                if (posts.length === 0) {
+                    container.innerHTML = '<div class="loading">No posts yet. Create the first one!</div>';
+                    return;
+                }
+
+                container.innerHTML = posts.map(post => `
+                    <div class="post" data-post-id="${post.id}">
+                        <div class="post-header">
+                            <div class="avatar">${getAvatarForUser(post.username)}</div>
+                            <div class="post-user">${post.username}</div>
+                            <div class="post-time">${formatTime(post.timestamp)}</div>
+                        </div>
+                        
+                        <div class="post-image">${post.image}</div>
+                        
+                        <div class="post-actions">
+                            <button class="action-btn like-btn" onclick="toggleLike('${post.id}')">
+                                ❤️
+                            </button>
+                            <button class="action-btn" onclick="focusComment('${post.id}')">
+                                💬
+                            </button>
+                            <div class="likes-count">${post.likes} likes</div>
+                        </div>
+                        
+                        ${post.caption ? `
+                            <div class="post-caption">
+                                <span class="username">${post.username}</span>
+                                ${post.caption}
+                            </div>
+                        ` : ''}
+                        
+                        <div class="comments-section">
+                            <div class="comments-list" id="comments-${post.id}">
+                                <div class="loading">Loading comments...</div>
+                            </div>
+                            
+                            <div class="add-comment">
+                                <input type="text" placeholder="Add a comment..." id="comment-input-${post.id}" maxlength="200">
+                                <button onclick="addComment('${post.id}')">Post</button>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+
+                // Load comments for each post
+                for (const post of posts) {
+                    await loadComments(post.id);
+                }
+
+            } catch (error) {
+                document.getElementById('postsContainer').innerHTML = '<div class="loading">Error loading posts</div>';
+            }
+        }
+
+        async function loadComments(postId) {
+            try {
+                const response = await fetch(`/api/posts/${postId}/comments`);
+                const comments = await response.json();
+                
+                const commentsContainer = document.getElementById(`comments-${postId}`);
+                
+                if (comments.length === 0) {
+                    commentsContainer.innerHTML = '<div style="color: #8e8e8e; font-size: 0.9rem;">No comments yet</div>';
+                    return;
+                }
+
+                commentsContainer.innerHTML = comments.map(comment => `
+                    <div class="comment">
+                        <div>
+                            <span class="username">${comment.username}</span>
+                            ${comment.text}
+                        </div>
+                        <div class="comment-time">${formatTime(comment.timestamp)}</div>
+                    </div>
+                `).join('');
+
+            } catch (error) {
+                console.error('Error loading comments:', error);
+            }
+        }
+
+        async function toggleLike(postId) {
+            try {
+                const response = await fetch(`/api/posts/${postId}/like`, {
+                    method: 'POST'
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    // Update likes count in UI
+                    const post = document.querySelector(`[data-post-id="${postId}"]`);
+                    const likesCount = post.querySelector('.likes-count');
+                    const likeBtn = post.querySelector('.like-btn');
+                    
+                    likesCount.textContent = `${result.likes} likes`;
+                    
+                    if (result.liked) {
+                        likeBtn.classList.add('liked');
+                    } else {
+                        likeBtn.classList.remove('liked');
+                    }
+                }
+            } catch (error) {
+                console.error('Error toggling like:', error);
+            }
+        }
+
+        async function addComment(postId) {
+            const input = document.getElementById(`comment-input-${postId}`);
+            const text = input.value.trim();
+            
+            if (!text) return;
+
+            try {
+                const response = await fetch(`/api/posts/${postId}/comments`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ text: text })
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    input.value = '';
+                    await loadComments(postId);
+                } else {
+                    alert(result.error || 'Error adding comment');
+                }
+            } catch (error) {
+                alert('Error adding comment');
+            }
+        }
+
+        function focusComment(postId) {
+            document.getElementById(`comment-input-${postId}`).focus();
+        }
+
+        function getAvatarForUser(username) {
+            const avatars = {
+                'john_doe': '👨‍💻',
+                'jane_smith': '👩‍🎨',
+                'photo_master': '📷',
+                'travel_lover': '🧳'
+            };
+            return avatars[username] || '😊';
+        }
+
+        function formatTime(timestamp) {
+            const date = new Date(timestamp);
+            const now = new Date();
+            const diff = now - date;
+            const minutes = Math.floor(diff / 60000);
+            const hours = Math.floor(minutes / 60);
+            const days = Math.floor(hours / 24);
+
+            if (days > 0) return `${days}d`;
+            if (hours > 0) return `${hours}h`;
+            if (minutes > 0) return `${minutes}m`;
+            return 'now';
+        }
+
+        async function logout() {
+            try {
+                await fetch('/api/logout', { method: 'POST' });
+                window.location.href = '/login';
+            } catch (error) {
+                console.error('Logout error:', error);
+            }
+        }
+
+        // Enter key support for comments
+        document.addEventListener('keypress', (e) => {
+            if (e.target.id && e.target.id.startsWith('comment-input-') && e.key === 'Enter') {
+                const postId = e.target.id.replace('comment-input-', '');
+                addComment(postId);
+            }
+        });
+    </script>
+</body>
+</html>

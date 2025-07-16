@@ -1,0 +1,153 @@
+{
+  "users": {
+    "john_doe": {
+      "username": "john_doe",
+      "name": "John Doe",
+      "bio": "📸 Photography enthusiast",
+      "avatar": "👨‍💻"
+    },
+    "jane_smith": {
+      "username": "jane_smith",
+      "name": "Jane Smith",
+      "bio": "✈️ Travel blogger & foodie 🍕",
+      "avatar": "👩‍🎨"
+    },
+    "photo_master": {
+      "username": "photo_master",
+      "name": "Photo Master",
+      "bio": "🌟 Capturing moments",
+      "avatar": "📷"
+    },
+    "travel_lover": {
+      "username": "travel_lover",
+      "name": "Travel Lover",
+      "bio": "🌍 Exploring the world",
+      "avatar": "🧳"
+    },
+    "asdf": {
+      "username": "asdf",
+      "name": "Asdf",
+      "bio": "New Instagram user! 👋",
+      "avatar": "😊"
+    }
+  },
+  "posts": [
+    {
+      "id": "002e091b-8376-4c09-8c6d-6d0ee134d85b",
+      "username": "jane_smith",
+      "image": "🌺",
+      "caption": "",
+      "timestamp": "2025-07-16 10:49",
+      "likes": 0,
+      "comments_count": 1
+    },
+    {
+      "id": "6bd90bee-1480-4069-97e3-c4dd7b6b0c9d",
+      "username": "john_doe",
+      "image": "🌅",
+      "caption": "Beautiful sunrise this morning! #sunrise #nature #photography",
+      "timestamp": "2024-01-15 08:30",
+      "likes": 0,
+      "comments_count": 5
+    },
+    {
+      "id": "003303dd-8d7c-484a-a49d-9f952618a4e7",
+      "username": "jane_smith",
+      "image": "🍕",
+      "caption": "Pizza night with friends! 🍕✨ #pizza #friends #foodie",
+      "timestamp": "2024-01-14 19:45",
+      "likes": 0,
+      "comments_count": 8
+    },
+    {
+      "id": "8cb1828b-66d1-4096-bbf0-03cbeb4b75ca",
+      "username": "photo_master",
+      "image": "🌸",
+      "caption": "Spring is coming! Cherry blossoms are so beautiful 🌸 #spring #flowers #nature",
+      "timestamp": "2024-01-13 14:20",
+      "likes": 0,
+      "comments_count": 12
+    },
+    {
+      "id": "4cdcdbad-532e-4a5c-9a15-5202b36bc3f9",
+      "username": "travel_lover",
+      "image": "🏔️",
+      "caption": "Amazing view from the mountain top! #hiking #nature #adventure",
+      "timestamp": "2024-01-12 16:10",
+      "likes": 0,
+      "comments_count": 15
+    }
+  ],
+  "comments": {
+    "6bd90bee-1480-4069-97e3-c4dd7b6b0c9d": [
+      {
+        "id": "4b746144-a169-4270-a629-1f8c2594bf5c",
+        "username": "jane_smith",
+        "text": "Amazing shot! 👍",
+        "timestamp": "2024-01-15 09:00"
+      },
+      {
+        "id": "b6ffd4da-c137-430b-aa82-4e8ec22f3562",
+        "username": "photo_master",
+        "text": "Wow! Where did you take this?",
+        "timestamp": "2024-01-15 09:15"
+      }
+    ],
+    "003303dd-8d7c-484a-a49d-9f952618a4e7": [
+      {
+        "id": "38b52064-cd4e-41a6-9902-d80a21ef2397",
+        "username": "jane_smith",
+        "text": "Amazing shot! 👍",
+        "timestamp": "2024-01-15 09:00"
+      },
+      {
+        "id": "2d586db2-192a-4cf9-8e4b-c69945d0d882",
+        "username": "photo_master",
+        "text": "Wow! Where did you take this?",
+        "timestamp": "2024-01-15 09:15"
+      }
+    ],
+    "8cb1828b-66d1-4096-bbf0-03cbeb4b75ca": [
+      {
+        "id": "a21806e8-a813-455f-9ab2-6443272ef15a",
+        "username": "jane_smith",
+        "text": "Amazing shot! 👍",
+        "timestamp": "2024-01-15 09:00"
+      },
+      {
+        "id": "364483c4-b3be-4b33-bb31-fb82933d7b23",
+        "username": "photo_master",
+        "text": "Wow! Where did you take this?",
+        "timestamp": "2024-01-15 09:15"
+      }
+    ],
+    "4cdcdbad-532e-4a5c-9a15-5202b36bc3f9": [
+      {
+        "id": "1955ae6f-f3d5-4c6d-9a63-dc8396bffcda",
+        "username": "jane_smith",
+        "text": "Amazing shot! 👍",
+        "timestamp": "2024-01-15 09:00"
+      },
+      {
+        "id": "636e49ea-f7e2-4613-95e3-d0d0c77205a3",
+        "username": "photo_master",
+        "text": "Wow! Where did you take this?",
+        "timestamp": "2024-01-15 09:15"
+      }
+    ],
+    "002e091b-8376-4c09-8c6d-6d0ee134d85b": [
+      {
+        "id": "83864ba7-65da-411b-93cd-4c6b12341618",
+        "username": "jane_smith",
+        "text": "k",
+        "timestamp": "2025-07-16 10:49"
+      }
+    ]
+  },
+  "likes": {
+    "6bd90bee-1480-4069-97e3-c4dd7b6b0c9d": [],
+    "4cdcdbad-532e-4a5c-9a15-5202b36bc3f9": [],
+    "8cb1828b-66d1-4096-bbf0-03cbeb4b75ca": [],
+    "003303dd-8d7c-484a-a49d-9f952618a4e7": []
+  }
+}

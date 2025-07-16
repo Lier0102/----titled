@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Commerce Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .search-bar {
+            flex: 1;
+            max-width: 500px;
+            margin: 0 2rem;
+            position: relative;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid #e9ecef;
+            border-radius: 25px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .search-bar input:focus {
+            border-color: #007bff;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: #007bff;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #0056b3;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: #007bff;
+            border: 2px solid #007bff;
+        }
+
+        .btn-outline:hover {
+            background: #007bff;
+            color: white;
+        }
+
+        .cart-icon {
+            position: relative;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #dc3545;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        /* Categories */
+        .categories {
+            padding: 3rem 0;
+            background: white;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #333;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .category-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            text-decoration: none;
+            color: #333;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            text-decoration: none;
+            color: #333;
+        }
+
+        .category-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .category-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .category-card p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Products Section */
+        .products-section {
+            padding: 3rem 0;
+            background: #f8f9fa;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-image {
+            height: 200px;
+            background: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-brand {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .product-description {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+
+        .product-price {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .current-price {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        .original-price {
+            font-size: 1rem;
+            color: #999;
+            text-decoration: line-through;
+        }
+
+        .discount-badge {
+            background: #dc3545;
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .product-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .stars {
+            color: #ffc107;
+        }
+
+        .rating-text {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn-sm {
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+        }
+
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #218838;
+        }
+
+        .btn-light {
+            background: #f8f9fa;
+            color: #333;
+            border: 1px solid #dee2e6;
+        }
+
+        .btn-light:hover {
+            background: #e2e6ea;
+        }
+
+        /* Footer */
+        .footer {
+            background: #333;
+            color: white;
+            padding: 3rem 0 1rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: #007bff;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section ul li a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid #555;
+            color: #ccc;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .search-bar {
+                margin: 0;
+                max-width: 100%;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .categories-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <a href="/" class="logo">🛒 E-Shop</a>
+            
+            <div class="search-bar">
+                <input type="text" placeholder="상품을 검색하세요..." id="searchInput">
+            </div>
+            
+            <div class="header-actions">
+                {% if session.user_id %}
+                    <span>안녕하세요, {{ session.username }}님!</span>
+                    <a href="/cart" class="btn btn-outline cart-icon">
+                        🛒 장바구니
+                        <span class="cart-count" id="cartCount">0</span>
+                    </a>
+                    <a href="/profile" class="btn btn-outline">👤 내 정보</a>
+                    <a href="/logout" class="btn btn-primary">로그아웃</a>
+                {% else %}
+                    <a href="/login" class="btn btn-outline">로그인</a>
+                    <a href="/register" class="btn btn-primary">회원가입</a>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>최고의 쇼핑 경험을 제공합니다</h1>
+            <p>다양한 브랜드의 정품 상품을 합리적인 가격에 만나보세요</p>
+            <a href="/products" class="btn btn-primary" style="font-size: 1.1rem; padding: 1rem 2rem;">
+                지금 쇼핑하기 →
+            </a>
+        </div>
+    </section>
+
+    <!-- Categories -->
+    <section class="categories">
+        <div class="container">
+            <h2 class="section-title">카테고리</h2>
+            <div class="categories-grid">
+                {% for category in categories %}
+                <a href="/products?category={{ category[0] }}" class="category-card">
+                    <div class="category-icon">
+                        {% if category[1] == '전자제품' %}📱
+                        {% elif category[1] == '의류' %}👕
+                        {% elif category[1] == '도서' %}📚
+                        {% elif category[1] == '홈&리빙' %}🏠
+                        {% elif category[1] == '스포츠' %}⚽
+                        {% elif category[1] == '뷰티' %}💄
+                        {% else %}🛍️
+                        {% endif %}
+                    </div>
+                    <h3>{{ category[1] }}</h3>
+                    <p>{{ category[2] or '다양한 상품을 만나보세요' }}</p>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section class="products-section">
+        <div class="container">
+            <h2 class="section-title">인기 상품</h2>
+            <div class="products-grid">
+                {% for product in featured_products %}
+                <div class="product-card">
+                    <div class="product-image">{{ product[12] }}</div>
+                    <div class="product-info">
+                        <div class="product-brand">{{ product[6] }}</div>
+                        <h3 class="product-name">{{ product[1] }}</h3>
+                        <p class="product-description">{{ product[2][:100] }}...</p>
+                        
+                        <div class="product-price">
+                            <span class="current-price">₩{{ "{:,}".format(int(product[3])) }}</span>
+                            {% if product[4] and product[4] > product[3] %}
+                            <span class="original-price">₩{{ "{:,}".format(int(product[4])) }}</span>
+                            <span class="discount-badge">
+                                {{ "%.0f"|format(((product[4] - product[3]) / product[4] * 100)) }}% OFF
+                            </span>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="product-rating">
+                            <span class="stars">
+                                {% for i in range(5) %}
+                                    {% if i < product[16] %}⭐{% else %}☆{% endif %}
+                                {% endfor %}
+                            </span>
+                            <span class="rating-text">{{ product[16] }} ({{ product[17] }}개 리뷰)</span>
+                        </div>
+                        
+                        <div class="product-actions">
+                            <button class="btn btn-success btn-sm" onclick="addToCart({{ product[0] }})">
+                                🛒 장바구니
+                            </button>
+                            <button class="btn btn-light btn-sm" onclick="addToWishlist({{ product[0] }})">
+                                ❤️ 찜
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Latest Products -->
+    <section class="products-section" style="background: white;">
+        <div class="container">
+            <h2 class="section-title">최신 상품</h2>
+            <div class="products-grid">
+                {% for product in latest_products %}
+                <div class="product-card">
+                    <div class="product-image">{{ product[12] }}</div>
+                    <div class="product-info">
+                        <div class="product-brand">{{ product[6] }}</div>
+                        <h3 class="product-name">{{ product[1] }}</h3>
+                        <p class="product-description">{{ product[2][:100] }}...</p>
+                        
+                        <div class="product-price">
+                            <span class="current-price">₩{{ "{:,}".format(int(product[3])) }}</span>
+                            {% if product[4] and product[4] > product[3] %}
+                            <span class="original-price">₩{{ "{:,}".format(int(product[4])) }}</span>
+                            <span class="discount-badge">
+                                {{ "%.0f"|format(((product[4] - product[3]) / product[4] * 100)) }}% OFF
+                            </span>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="product-rating">
+                            <span class="stars">
+                                {% for i in range(5) %}
+                                    {% if i < product[16] %}⭐{% else %}☆{% endif %}
+                                {% endfor %}
+                            </span>
+                            <span class="rating-text">{{ product[16] }} ({{ product[17] }}개 리뷰)</span>
+                        </div>
+                        
+                        <div class="product-actions">
+                            <button class="btn btn-success btn-sm" onclick="addToCart({{ product[0] }})">
+                                🛒 장바구니
+                            </button>
+                            <button class="btn btn-light btn-sm" onclick="addToWishlist({{ product[0] }})">
+                                ❤️ 찜
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>고객 서비스</h3>
+                <ul>
+                    <li><a href="#">고객센터</a></li>
+                    <li><a href="#">배송 정보</a></li>
+                    <li><a href="#">반품/교환</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>회사 정보</h3>
+                <ul>
+                    <li><a href="#">회사 소개</a></li>
+                    <li><a href="#">채용 정보</a></li>
+                    <li><a href="#">투자자 정보</a></li>
+                    <li><a href="#">보도자료</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>정책</h3>
+                <ul>
+                    <li><a href="#">이용약관</a></li>
+                    <li><a href="#">개인정보처리방침</a></li>
+                    <li><a href="#">쿠키 정책</a></li>
+                    <li><a href="#">법적 고지</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>소셜 미디어</h3>
+                <ul>
+                    <li><a href="#">📘 Facebook</a></li>
+                    <li><a href="#">📷 Instagram</a></li>
+                    <li><a href="#">🐦 Twitter</a></li>
+                    <li><a href="#">📺 YouTube</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 E-Shop. All rights reserved. | 대표: 홍길동 | 사업자등록번호: 123-45-67890</p>
+        </div>
+    </footer>
+
+    <script>
+        // 검색 기능
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const query = this.value.trim();
+                if (query) {
+                    window.location.href = `/products?search=${encodeURIComponent(query)}`;
+                }
+            }
+        });
+
+        // 장바구니 추가
+        async function addToCart(productId) {
+            try {
+                const response = await fetch('/api/cart/add', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        product_id: productId,
+                        quantity: 1
+                    })
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    alert('장바구니에 추가되었습니다!');
+                    updateCartCount();
+                } else {
+                    if (response.status === 401) {
+                        alert('로그인이 필요합니다.');
+                        window.location.href = '/login';
+                    } else {
+                        alert(result.error || '장바구니 추가에 실패했습니다.');
+                    }
+                }
+            } catch (error) {
+                alert('오류가 발생했습니다.');
+            }
+        }
+
+        // 위시리스트 추가
+        async function addToWishlist(productId) {
+            try {
+                const response = await fetch('/api/wishlist/add', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        product_id: productId
+                    })
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    alert('위시리스트에 추가되었습니다!');
+                } else {
+                    if (response.status === 401) {
+                        alert('로그인이 필요합니다.');
+                        window.location.href = '/login';
+                    } else {
+                        alert(result.error || '위시리스트 추가에 실패했습니다.');
+                    }
+                }
+            } catch (error) {
+                alert('오류가 발생했습니다.');
+            }
+        }
+
+        // 장바구니 개수 업데이트
+        async function updateCartCount() {
+            try {
+                const response = await fetch('/api/cart/count');
+                if (response.ok) {
+                    const result = await response.json();
+                    document.getElementById('cartCount').textContent = result.count;
+                }
+            } catch (error) {
+                console.error('장바구니 개수 업데이트 실패:', error);
+            }
+        }
+
+        // 페이지 로드시 장바구니 개수 업데이트
+        document.addEventListener('DOMContentLoaded', function() {
+            {% if session.user_id %}
+            updateCartCount();
+            {% endif %}
+        });
+    </script>
+</body>
+</html>
